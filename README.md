@@ -12,7 +12,7 @@
 ## Introduction
 "This project automates the deployment and configuration of infrastructure on Azure by integrating Terraform and Ansible. Terraform deploys one Linux machine and two Windows machines across different regions and virtual networks, connecting them via global VNet peering. Once the VMs are created, Ansible is used for post-provisioning configuration management. Ansible scripts install essential packages on the Windows VMs, such as the .NET Framework, Python, and Docker Desktop, ensuring a consistent, reproducible, and scalable environment while minimizing manual intervention and configuration drift."
 
-![Multi-Region Infrastructure Diagram](C:\Users\emanu\Downloads\multi-region-infrastructure.png)
+![Multi-Region Infrastructure Diagram](C:\Users\emanu\OneDrive\Desktop\projects for github\ansible project\multi-region-infrastructure.png)
 
 ### Key Features
 
@@ -98,5 +98,3 @@ To remove all created resources, run:
    ```bash
    terraform destroy
    ```
-
-terraform destroy
