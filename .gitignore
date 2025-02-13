@@ -1,0 +1,28 @@
+# Terraform state files
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl
+
+# Sensitive information
+*.tfvars
+hosts.ini
+
+# Ansible
+*.retry
+
+# Backup files
+*.bak
+*.backup
+
+# Logs
+*.log
+
+
+# Temporary files
+*.tmp
+*~
+
+# Credential and secret files
+*secret*
+*credentials*

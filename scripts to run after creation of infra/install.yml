@@ -1,0 +1,53 @@
+---
+- name: Install .NET Framework 4.8, Python, and Docker on Windows
+  hosts: windows
+  gather_facts: no
+
+  tasks:
+    - name: Create Temp directory for downloads
+      win_file:
+        path: "C:\\Temp"
+        state: directory
+
+    - name: Download .NET Framework 4.8 installer
+      win_get_url:
+        url: "https://download.visualstudio.microsoft.com/download/pr/2d6bb6b2-226a-4baa-bdec-798822606ff1/8494001c276a4b96804cde7829c04d7f/ndp48-x86-x64-allos-enu.exe"
+        dest: "C:\\Temp\\ndp48-x86-x64-allos-enu.exe"
+      register: dotnet_download
+
+    - name: Install .NET Framework 4.8 silently
+      win_package:
+        path: "C:\\Temp\\ndp48-x86-x64-allos-enu.exe"
+        arguments: "/q /norestart"
+        state: present
+      register: dotnet_install
+      ignore_errors: yes
+
+    - name: Reboot after .NET Framework installation if required
+      win_reboot:
+        msg: "Rebooting after .NET Framework 4.8 installation."
+        connect_timeout: 30
+        reboot_timeout: 600
+      when: dotnet_install.changed
+
+    - name: Ensure Chocolatey is installed (using Chocolatey nugget)
+      win_chocolatey:
+        name: chocolatey
+        state: present
+
+    - name: Install Python via Chocolatey
+      win_chocolatey:
+        name: python
+        state: present
+
+    - name: Install Docker Desktop via Chocolatey
+      win_chocolatey:
+        name: docker-desktop
+        state: present
+
+    - name: Reboot to complete Docker Desktop installation if required
+      win_reboot:
+        msg: "Rebooting to complete Docker Desktop installation."
+        connect_timeout: 30
+        reboot_timeout: 600
+      when: "'docker-desktop' in (win_chocolatey.changed_packages | default([]))"
