@@ -6,7 +6,7 @@
 
 # Sensitive information
 *.tfvars
-hosts.ini
+
 
 # Ansible
 *.retry
