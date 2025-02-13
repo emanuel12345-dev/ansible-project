@@ -1,10 +1,10 @@
 # File: variables.tf
 variable "admin_username" {
   type    = string
-  default = "adminuser"
+  default = "adminusername"
 }
 
 variable "admin_password" {
   type    = string
-  default = "Emanuel12345"
+  default = "password"
 }
